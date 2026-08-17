@@ -1,0 +1,1524 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #ffeaf6;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Khung màu hồng */
+
+.login-card {
+    width: 1020px;
+    min-height: 690px;
+
+    padding: 65px 35px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 100px;
+
+    background: linear-gradient(
+        135deg,
+        #e978aa,
+        #ee5294
+    );
+
+    border-radius: 35px;
+
+    box-shadow:
+        0 20px 50px rgba(190, 60, 120, 0.25);
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Ảnh bên trái */
+
+.photo-area {
+    width: 445px;
+    height: 555px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    background: white;
+}
+
+.photo-area img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+/* Khu vực nhập PIN */
+
+.pin-area {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Trái tim */
+
+.heart {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.25);
+
+    color: white;
+
+    font-size: 18px;
+}
+
+/* Tiêu đề */
+
+.pin-area h2 {
+    margin-bottom: 25px;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: 600;
+}
+
+/* 4 ô mật khẩu */
+
+.pin-dots {
+    display: flex;
+
+    gap: 27px;
+
+    margin-bottom: 45px;
+}
+
+.pin-dots span {
+    width: 23px;
+    height: 23px;
+
+    border: 2px solid white;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+}
+
+/* Ô sáng khi nhập */
+
+.pin-dots span.active {
+    background: white;
+
+    box-shadow:
+        0 0 10px rgba(255,255,255,0.8);
+}
+
+/* Bàn phím */
+
+.keypad {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 82px);
+
+    grid-template-rows:
+        repeat(4, 82px);
+
+    gap: 18px;
+}
+
+/* Nút */
+
+.keypad button {
+    width: 82px;
+    height: 82px;
+
+    border: 1px solid rgba(255,255,255,0.75);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s,
+        transform 0.15s;
+}
+
+/* Khi di chuột */
+
+.keypad button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* Khi bấm */
+
+.keypad button:active {
+    transform: scale(0.9);
+
+    background: rgba(255,255,255,0.25);
+}
+
+/* Nút xóa */
+
+.delete-btn {
+    border: none !important;
+
+    font-size: 28px !important;
+
+    font-weight: bold;
+}
+
+/* Thông báo */
+
+#message {
+    height: 25px;
+
+    margin-top: 20px;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+/* Hiệu ứng rung */
+
+@keyframes shake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+
+    75% {
+        transform: translateX(-8px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+.login-card.shake {
+    animation: shake 0.35s;
+}
+
+/* Điện thoại */
+
+@media (max-width: 850px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .login-card {
+
+        width: 100%;
+
+        padding: 30px 20px;
+
+        flex-direction: column;
+
+        gap: 40px;
+    }
+
+    .photo-area {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        height: 400px;
+    }
+
+    .pin-area {
+
+        width: 100%;
+    }
+}/* ==================================
+   CHUYỂN MÀN HÌNH
+================================== */
+
+.screen {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.8s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ==================================
+   MÀN HÌNH PHONG THƯ
+================================== */
+
+#envelope-screen {
+    background:
+        radial-gradient(
+            circle at center,
+            #ffd9e8,
+            #f5a8c5
+        );
+}
+
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Phong thư */
+
+.envelope {
+    position: relative;
+
+    width: 430px;
+    height: 280px;
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(
+            0 20px 25px rgba(100, 40, 70, 0.25)
+        );
+
+    transition: transform 0.4s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-10px);
+}
+
+
+/* Mặt sau */
+
+.envelope-back {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: #f5b1c9;
+
+    border-radius: 8px;
+
+    z-index: 1;
+}
+
+
+/* Lá thư bên trong */
+
+
+.letter-content {
+    padding: 30px;
+
+    text-align: center;
+
+    color: #8d536d;
+
+    font-size: 18px;
+}
+
+.letter-content span {
+    font-size: 35px;
+}
+
+
+/* Mặt trước phong thư */
+
+.envelope-front {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 55%;
+
+    background: #ed8eb0;
+
+    clip-path: polygon(
+        0 0,
+        50% 65%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+    z-index: 3;
+}
+
+
+/* Con dấu trái tim */
+
+.heart-seal {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -20%);
+
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #df4e80;
+
+    color: white;
+
+    font-size: 28px;
+
+    z-index: 5;
+
+    box-shadow:
+        0 5px 15px rgba(120, 30, 70, 0.25);
+}
+
+
+/* Chữ hướng dẫn */
+
+.open-text {
+    margin-top: 35px;
+
+    color: white;
+
+    font-size: 18px;
+
+    animation: floating 2s infinite ease-in-out;
+}
+
+
+@keyframes floating {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ==================================
+   MỞ PHONG THƯ
+================================== */
+
+.envelope.open .letter {
+    transform: translateY(-180px);
+}
+
+.envelope.open .heart-seal {
+    opacity: 0;
+}
+
+
+/* ==================================
+   TRANG THƯ
+================================== */
+
+#letter-screen {
+    background:
+        linear-gradient(
+            135deg,
+            #f7b4cd,
+            #f9d6e3
+        );
+
+    padding: 40px 20px;
+}
+
+
+.letter-page {
+    position: relative;
+
+    width: 650px;
+    max-width: 95%;
+
+    min-height: 650px;
+
+    padding: 70px;
+
+    background:
+        #fffaf0;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(120, 50, 80, 0.25);
+
+    color: #694c55;
+
+    animation: pageAppear 1s ease;
+}
+
+
+@keyframes pageAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) rotate(2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+
+}
+
+
+.letter-page h1 {
+    margin-bottom: 35px;
+
+    text-align: center;
+
+    color: #d65c88;
+
+    font-family: Georgia, serif;
+}
+
+
+.letter-page p {
+    margin-bottom: 25px;
+
+    line-height: 1.9;
+
+    font-size: 18px;
+}
+
+
+.letter-decoration {
+    position: absolute;
+
+    top: 25px;
+    right: 30px;
+
+    font-size: 30px;
+}
+
+
+.signature {
+    margin-top: 50px;
+
+    text-align: right;
+
+    color: #d65c88;
+
+    font-family: cursive;
+}
+
+
+/* Nút tiếp theo */
+
+.next-button {
+    display: block;
+
+    margin: 40px auto 0;
+
+    padding: 12px 30px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #df7199;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.next-button:hover {
+    transform: scale(1.08);
+
+    background: #d55785;
+/* ==============================
+   PHONG THƯ
+============================== */
+
+#envelope-screen {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffd9e8,
+            #f5a8c5
+        );
+
+    overflow: hidden;
+}
+
+
+/* Khung phong thư */
+
+.envelope-container {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 10;
+}
+
+
+.envelope {
+    position: relative;
+
+    width: 430px;
+    height: 280px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    filter:
+        drop-shadow(
+            0 20px 25px
+            rgba(100, 40, 70, 0.25)
+        );
+}
+
+
+/* Mặt sau */
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    background: #f5b1c9;
+
+    z-index: 1;
+}
+/* Mở phong thư */
+
+.envelope.open .letter {
+
+    transform: translateY(-170px);
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        transform 0.9s ease,
+        opacity 0.3s ease;
+}
+
+
+/* ==============================
+   MẶT TRƯỚC PHONG THƯ
+============================== */
+
+.envelope-front {
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 55%;
+
+    background: #ed8eb0;
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 65%,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    z-index: 4;
+}
+
+
+}/* ==============================
+   ICON + CHẠM ĐỂ MỞ
+============================== */
+
+/* Icon + chữ nằm dưới phong thư */
+
+.envelope-container .open-hint {
+    position: absolute;
+
+    left: 50%;
+
+    top: calc(50% + 155px);
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    color: white;
+
+    white-space: nowrap;
+}
+
+
+/* Icon lá thư */
+
+.envelope-container .mail-icon {
+    font-size: 38px;
+
+    line-height: 1;
+
+    animation: mailBounce 1.8s ease-in-out infinite;
+}
+
+
+/* Chữ */
+
+.envelope-container .open-hint-text {
+    font-size: 18px;
+
+    font-weight: 600;
+
+    text-shadow:
+        0 2px 6px rgba(80, 20, 50, 0.35);
+
+    animation:
+        textPulse 1.8s ease-in-out infinite;
+}
+
+
+/* Khi mở phong thư */
+
+.envelope.open ~ .open-hint {
+    opacity: 0;
+}
+
+
+/* Icon nhún nhẹ */
+
+@keyframes mailBounce {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* Chữ nhấp nháy */
+
+@keyframes textPulse {
+
+    0%, 100% {
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.mail-icon {
+
+    width: 58px;
+    height: 45px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #df4e80;
+
+    border-radius: 8px;
+
+    color: white;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(100, 30, 70, 0.25);
+}
+
+
+.open-hint-text {
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 2px 5px
+        rgba(100, 30, 70, 0.25);
+}
+
+
+/* ==============================
+   TRÁI TIM
+============================== */
+
+.heart-seal {
+
+    position: absolute;
+
+    left: 50%;
+    top: 65%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #df4e80;
+
+    color: white;
+
+    font-size: 27px;
+
+    z-index: 8;
+
+    box-shadow:
+        0 5px 15px
+        rgba(120, 30, 70, 0.25);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Khi mở */
+
+.envelope.open .heart-seal {
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.5);
+}
+
+
+.envelope.open .open-hint {
+
+    opacity: 0;
+}
+
+
+/* ==============================
+   TIM RƠI
+============================== */
+
+.falling-heart {
+
+    position: fixed;
+
+    top: -40px;
+
+    color: #ff6f9f;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+    opacity: 0.8;
+
+    animation:
+        heartFall linear forwards;
+}
+@keyframes heartFall {
+
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateY(50vh) rotate(180deg);
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}/* ===== FIX PHONG THƯ ===== */
+
+
+/* =========================================
+   TRÁI TIM RƠI TOÀN MÀN HÌNH
+========================================= */
+
+.falling-heart {
+    position: fixed;
+
+    top: -50px;
+
+    left: 0;
+
+    color: #ff6f9f;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    opacity: 0;
+
+    animation-name: heartFall;
+
+    animation-timing-function: linear;
+
+    animation-fill-mode: forwards;
+
+}
+
+
+/* Rơi từ trên xuống dưới */
+
+@keyframes heartFall {
+
+    0% {
+        transform:
+            translateY(-50px)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}/* ==============================
+   CHẠM VÀO ĐỂ MỞ
+============================== */
+
+/* Icon nhảy nhẹ */
+
+@keyframes mailBounce {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+/* Chữ nhấp nháy nhẹ */
+
+@keyframes textPulse {
+
+    0%, 100% {
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+/* =========================================
+   ICON + CHỮ "CHẠM VÀO ĐỂ MỞ"
+   NẰM BÊN DƯỚI PHONG THƯ
+========================================= */
+
+.envelope-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Phong thư */
+.envelope {
+    position: relative;
+}
+
+/* Nhóm icon + chữ */
+.envelope-container .open-hint {
+    position: absolute;
+
+    top: calc(100% + 35px);
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    color: white;
+
+    white-space: nowrap;
+}
+
+/* Icon lá thư */
+.envelope-container .mail-icon {
+    width: auto;
+    height: auto;
+
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    color: white;
+
+    font-size: 42px;
+    line-height: 1;
+
+    animation: mailBounce 1.8s ease-in-out infinite;
+}
+
+/* Chữ */
+.envelope-container .open-hint-text {
+    position: static;
+
+    transform: none;
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 2px 6px rgba(80, 20, 50, 0.35);
+
+    animation: textPulse 1.8s ease-in-out infinite;
+}
+
+/* Khi mở phong thư thì icon + chữ biến mất */
+.envelope.open ~ .open-hint {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Icon nhún */
+@keyframes mailBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+/* Chữ nhấp nháy */
+@keyframes textPulse {
+    0%, 100% {
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}/* =========================================
+   ANIMATION LÁ THƯ CHUI TỪ DƯỚI LÊN
+========================================= */
+
+.envelope .letter {
+    position: absolute;
+
+    width: 86%;
+    height: 230px;
+
+    left: 7%;
+    bottom: 5px;
+
+    background: #fff8ef;
+
+    z-index: 2;
+
+    /*
+       Khi đóng:
+       lá thư nằm hoàn toàn bên dưới phong thư
+    */
+    transform: translateY(280px);
+
+    opacity: 1;
+
+    transition:
+        transform 1.3s cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        );
+}
+
+
+/*
+   Khi mở:
+   lá thư từ dưới chui lên
+*/
+.envelope.open .letter {
+    transform: translateY(-170px);
+
+    opacity: 1;
+
+    z-index: 3;
+}/* ===== ANIMATION LÁ THƯ TRƯỢT LÊN ===== */
+
+.envelope {
+    overflow: hidden !important;
+}
+
+/* =========================================
+   LÁ THƯ - ẨN KHI ĐÓNG
+========================================= */
+
+.envelope {
+    overflow: hidden !important;
+}
+
+.envelope .letter {
+    position: absolute;
+
+    width: 86%;
+    height: 230px;
+
+    left: 7%;
+    bottom: 0;
+
+    background: #fff8ef;
+
+    z-index: 2;
+
+    /* Nằm hoàn toàn bên trong phong thư */
+    transform: translateY(230px);
+
+    opacity: 1;
+
+    transition:
+        transform 1.2s cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        );
+}
+
+
+/* Khi mở: thư trượt từ dưới lên */
+.envelope.open .letter {
+    transform: translateY(-50px);
+
+    opacity: 1;
+
+    z-index: 3;
+}/* =========================================
+   CHUYỂN PHONG THƯ → TRANG THƯ
+========================================= */
+
+/* Màn hình phong thư */
+#envelope-screen {
+    opacity: 1;
+    transform: scale(1);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+
+/* Phong thư thu nhỏ */
+#envelope-screen.leaving {
+    opacity: 0;
+    transform: scale(0.25);
+    transform-origin: center center;
+    pointer-events: none;
+}
+
+
+/* Màn hình trang thư */
+#letter-screen {
+    opacity: 0;
+    transform: scale(1.35);
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+
+/* Trang thư phóng to về kích thước bình thường */
+#letter-screen.show-letter {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* Tờ giấy */
+#letter-screen .letter-page {
+    opacity: 0;
+
+    transform:
+        scale(0.75)
+        translateY(20px);
+}
+
+
+/* Tờ giấy phóng to */
+#letter-screen.show-letter .letter-page {
+
+    animation:
+        letterZoomIn
+        1s
+        cubic-bezier(0.22, 0.61, 0.36, 1)
+        forwards;
+}
+
+
+@keyframes letterZoomIn {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(0.75)
+            translateY(20px);
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}   .falling-image {
+    width: 80px;
+    height: 80px;
+
+    object-fit: contain;
+
+    display: block;
+
+    pointer-events: none;
+}/* =========================================
+   TRANG THƯ 2
+========================================= */
+
+#letter-screen-2 {
+    background:
+        linear-gradient(
+            135deg,
+            #f7b4cd,
+            #f9d6e3
+        );
+
+    opacity: 0;
+    transform: scale(1.04);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+
+/* Trang 1 rời đi */
+
+#letter-screen.page-leaving {
+    opacity: 0;
+
+    transform:
+        scale(0.96);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+
+/* Trang 2 xuất hiện */
+
+#letter-screen-2.page-show {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* Tờ giấy trang 2 */
+
+.letter-page-2 {
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        scale(0.95);
+}
+
+
+/* Animation tờ giấy */
+
+#letter-screen-2.page-show .letter-page-2 {
+
+    animation:
+        page2Appear
+        0.9s
+        cubic-bezier(
+            0.22,
+            0.61,
+            0.36,
+            1
+        )
+        forwards;
+}
+
+
+@keyframes page2Appear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}/* =================================
+   TRANG 3
+================================= */
+
+#letter-screen-3 {
+    background:
+        linear-gradient(
+            135deg,
+            #f7b4cd,
+            #f9d6e3
+        );
+
+    padding: 40px 20px;
+
+    opacity: 0;
+    transform: scale(0.92) translateY(30px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+
+/* Khi trang 3 xuất hiện */
+
+#letter-screen-3.show-letter {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+
+/* Nội dung trang 3 */
+
+.page-3 {
+    animation:
+        page3Appear 0.9s ease forwards;
+}
+
+
+@keyframes page3Appear {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(0.9)
+            translateY(50px)
+            rotate(2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0)
+            rotate(0);
+    }
+
+}
+
+
+/* Tiêu đề trang 3 */
+
+.page-3 h1 {
+    color: #d65c88;
+
+    text-shadow:
+        0 3px 8px
+        rgba(214, 92, 136, 0.15);
+}
+
+
+/* Trang 3 hơi lung linh */
+
+.page-3::before {
+    content: "♥";
+
+    position: absolute;
+
+    top: 25px;
+    left: 30px;
+
+    color: #ff82aa;
+
+    font-size: 25px;
+
+    animation: pageHeart 2s ease-in-out infinite;
+}
+
+
+@keyframes pageHeart {
+
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 1;
+    }
+
+}
